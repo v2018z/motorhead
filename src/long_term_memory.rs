@@ -67,7 +67,7 @@ pub async fn search_messages(
     let vector = encode(response.data[0].embedding.clone());
     let query = format!("@session:{}=>[KNN 10 @vector $V AS dist]", session_id);
 
-    let values: Vec<Value> = redis::cmd("FT.SEARCH")
+    let values: Vec<Value> = redis::cmd("TFT.SEARCH")
         .arg("motorhead")
         .arg(query)
         .arg("PARAMS")

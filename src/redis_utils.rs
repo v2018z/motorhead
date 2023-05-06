@@ -8,11 +8,11 @@ pub fn ensure_redisearch_index(
     let mut con = redis.get_connection()?;
     let index_name = "motorhead";
 
-    let index_info: Result<redis::Value, _> = redis::cmd("FT.INFO").arg(index_name).query(&mut con);
+    let index_info: Result<redis::Value, _> = redis::cmd("TFT.INFO").arg(index_name).query(&mut con);
 
     if let Err(err) = index_info {
         if err.to_string().contains("Unknown: Index name") {
-            redis::cmd("FT.CREATE")
+            redis::cmd("TFT.CREATE")
                 .arg(index_name)
                 .arg("ON")
                 .arg("HASH")
